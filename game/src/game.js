@@ -18,7 +18,7 @@ export default class Game extends React.Component{ // сохдаем класс 
     }
 
     handleClick(i){
-        console.log('handleClick',i);
+        const {xIsNext,history} = this.state;
     }
 
 
