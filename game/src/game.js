@@ -19,6 +19,16 @@ export default class Game extends React.Component{ // сохдаем класс 
 
     handleClick(i){
         const {xIsNext,history} = this.state;
+        const current = history[histoty.lenght-1];
+        const squares = current.squares.slice();
+        
+        squares[i]= xIsNext ? 'X' : 'O';
+        
+        this.setState({
+            xIsNext: !xIsNext,
+            history: history.concat([{squares]),
+            stepNumber: ++this.state.stepNumber            
+        });
     }
 
 
