@@ -1,5 +1,6 @@
 import React from 'react';// подключаем реакт, который будет превращать js в свои нативныые объекты 
 import Board from './board';
+import calculateWinner from './helpers/calculateWinner';
 
 //создаем конструкцию экспорт
 
@@ -22,6 +23,10 @@ export default class Game extends React.Component{ // сохдаем класс 
         const current = history[histoty.lenght-1];
         const squares = current.squares.slice();
         
+        if (calculateWinner(squares) || squares[i]){
+            return;
+        }
+        
         squares[i]= xIsNext ? 'X' : 'O';
         
         this.setState({
@@ -35,11 +40,16 @@ export default class Game extends React.Component{ // сохдаем класс 
     render(){
         const {xIsNext,stepNumber, history} = this.state;
         const current =history[stepNumber];
-
-        const status = 'Следующий ход' + (xIsNext ? 'X' : 'O');
-
-
-        return(
+        const winner = calculateWinner(current.squares);
+        let status;
+        if(winner){
+            status="Победитель " + winner;
+        } else {
+            status = 'Следующий ход' + (xIsNext ? 'X' : 'O');
+         }
+                      
+                                    
+         return(
             <div className="game">
                 <div className="game-board">
                     <Board 
